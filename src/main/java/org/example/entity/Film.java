@@ -25,7 +25,7 @@ public class Film implements EntityClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false, length = 128)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "description")
@@ -40,7 +40,7 @@ public class Film implements EntityClass {
 
     @ManyToOne
     @JoinColumn(name = "original_language_id")
-    private Language originalLanguageId;
+    private Language originalLanguage;
 
     @Column(name = "rental_duration", nullable = false)
     private Integer rentalDuration;
@@ -65,4 +65,7 @@ public class Film implements EntityClass {
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdate;
+
+    @OneToOne(mappedBy = "film", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private FilmText filmText;
 }

@@ -15,7 +15,7 @@ public class SpecialFeatureConverter implements AttributeConverter<Set<SpecialFe
         if (specialFeatures == null || specialFeatures.isEmpty()) return "";
         return specialFeatures.stream()
                 .map(SpecialFeature::getValue)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(","));
     }
 
     @Override

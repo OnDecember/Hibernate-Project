@@ -1,11 +1,20 @@
 package org.example.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "language", schema = "movie")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Language implements EntityClass {
 
     @Id
@@ -16,6 +25,7 @@ public class Language implements EntityClass {
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
+    @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdate;
 }
