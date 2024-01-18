@@ -6,9 +6,12 @@ import org.example.converter.RatingConverter;
 import org.example.converter.SpecialFeatureConverter;
 import org.example.enums.Rating;
 import org.example.enums.SpecialFeature;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -62,10 +65,21 @@ public class Film implements EntityClass {
     @Column(name = "special_features")
     private Set<SpecialFeature> features;
 
+    @OneToOne(mappedBy = "film", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @EqualsAndHashCode.Exclude
+    private FilmText filmText;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "film_actor",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Actor> actors = new HashSet<>();
+
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
-    private LocalDateTime lastUpdate;
-
-    @OneToOne(mappedBy = "film", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private FilmText filmText;
+    private ZonedDateTime lastUpdate;
 }

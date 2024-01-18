@@ -10,22 +10,22 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "language", schema = "movie")
+@Table(name = "category", schema = "movie")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Language implements EntityClass {
+public class Category implements EntityClass {
 
     @Id
-    @Column(name = "language_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "category_id", nullable = false)
+    private Long id;
 
-    @Column(name = "name", nullable = false, length = 20)
+    @Column(name = "name", length = 25, nullable = false)
     private String name;
 
     @UpdateTimestamp
-    @Column(name = "last_update", nullable = false)
+    @Column(name = "last_update")
     private ZonedDateTime lastUpdate;
 }

@@ -7,23 +7,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "language", schema = "movie")
+@Table(name = "film_actor", schema = "movie")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Language implements EntityClass {
+public class FilmActor implements EntityClass, Serializable {
 
     @Id
-    @Column(name = "language_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "actor_id", nullable = false)
+    private Long actorId;
 
-    @Column(name = "name", nullable = false, length = 20)
-    private String name;
+    @Id
+    @Column(name = "film_id", nullable = false)
+    private Long filmId;
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
