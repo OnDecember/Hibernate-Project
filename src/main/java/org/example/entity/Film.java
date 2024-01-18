@@ -67,6 +67,7 @@ public class Film implements EntityClass {
 
     @OneToOne(mappedBy = "film", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
+    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private FilmText filmText;
 
@@ -78,6 +79,15 @@ public class Film implements EntityClass {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Actor> actors = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "film_category",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Category> categories;
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)

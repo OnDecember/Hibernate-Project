@@ -1,9 +1,6 @@
 package org.example;
 
-import org.example.entity.Actor;
-import org.example.entity.Film;
-import org.example.entity.FilmText;
-import org.example.entity.Language;
+import org.example.entity.*;
 import org.example.enums.Rating;
 import org.example.enums.SpecialFeature;
 import org.example.manager.SessionManager;
@@ -19,17 +16,17 @@ public class Main {
             Transaction transaction = session.getTransaction();
             transaction.begin();
 
-            Film film = session.get(Film.class, 1004L);
+            Film film = session.get(Film.class, 100L);
 
-            Actor actor = session.get(Actor.class, 200L);
-
-            film.getActors().add(actor);
+//            Actor actor = session.get(Actor.class, 200L);
+//
+//            film.getActors().add(actor);
 
             transaction.commit();
 
-            System.out.println(film.getActors());
+            film.getCategories().forEach(c -> c.getFilms().forEach(System.out::println));
 
-            System.out.println(actor.getFilms());
+//            System.out.println(actor.getFilms());
 
 
 //            String hql = "FROM Film";
