@@ -11,28 +11,39 @@ import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "country", schema = "movie")
+@Table(name = "store", schema = "movie")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country implements EntityClass {
+public class Store implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "country_id", nullable = false)
+    @Column(name = "store_id", nullable = false)
     private Long id;
 
-    @Column(name = "country", nullable = false, length = 50)
-    private String name;
+    @OneToOne
+    @JoinColumn(name = "manager_staff_id", nullable = false, unique = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Staff manager;
 
-    @OneToMany(mappedBy = "country")
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Address address;
+
+    @OneToMany(mappedBy = "store")
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<City> cities;
+    private Set<Staff> employees;
 
     @UpdateTimestamp
-    @Column(name = "last_update", nullable = false)
+    @Column(name = "last_update")
     private ZonedDateTime lastUpdate;
 }

@@ -1,4 +1,3 @@
 package org.example.interfaces;
 
-public interface EntityClass {
-}
+public interface EntityClass {}

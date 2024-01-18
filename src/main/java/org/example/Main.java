@@ -26,11 +26,15 @@ public class Main {
 //            System.out.println(country);
 //            country.getCities().forEach(System.out::println);
 
-            City city = session.get(City.class, 135L);
-            city.getAddresses().forEach(System.out::println);
+//            City city = session.get(City.class, 135L);
+//            city.getAddresses().forEach(System.out::println);
+//
+//            Address address = session.get(Address.class, 405L);
+//            System.out.println(address.getCity());
 
-            Address address = session.get(Address.class, 405L);
-            System.out.println(address.getCity());
+            Store store = session.get(Store.class, 1L);
+            System.out.println(store.getManager());
+            System.out.println(store.getEmployees());
             transaction.commit();
 
 //            film.getCategories().forEach(c -> c.getFilms().forEach(System.out::println));

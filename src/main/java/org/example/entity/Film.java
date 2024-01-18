@@ -40,10 +40,12 @@ public class Film implements EntityClass {
 
     @ManyToOne
     @JoinColumn(name = "language_id", nullable = false)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Language language;
 
     @ManyToOne
     @JoinColumn(name = "original_language_id")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Language originalLanguage;
 
     @Column(name = "rental_duration", nullable = false)
@@ -67,7 +69,7 @@ public class Film implements EntityClass {
     private Set<SpecialFeature> features;
 
     @OneToOne(mappedBy = "film", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.EXTRA)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private FilmText filmText;
