@@ -3,11 +3,13 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.interfaces.EntityClass;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "city", schema = "movie")
@@ -31,6 +33,12 @@ public class City implements EntityClass {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Country country;
+
+    @OneToMany(mappedBy = "city")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Address> addresses;
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)

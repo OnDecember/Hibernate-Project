@@ -6,6 +6,7 @@ import org.example.converter.RatingConverter;
 import org.example.converter.SpecialFeatureConverter;
 import org.example.enums.Rating;
 import org.example.enums.SpecialFeature;
+import org.example.interfaces.EntityClass;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.UpdateTimestamp;

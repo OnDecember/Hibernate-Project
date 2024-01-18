@@ -16,16 +16,21 @@ public class Main {
             Transaction transaction = session.getTransaction();
             transaction.begin();
 
-            Film film = session.get(Film.class, 100L);
+//            Film film = session.get(Film.class, 100L);
 
 //            Actor actor = session.get(Actor.class, 200L);
 //
 //            film.getActors().add(actor);
 
-            Country country = session.get(Country.class, 103L);
-            System.out.println(country);
-            country.getCities().forEach(System.out::println);
+//            Country country = session.get(Country.class, 103L);
+//            System.out.println(country);
+//            country.getCities().forEach(System.out::println);
 
+            City city = session.get(City.class, 135L);
+            city.getAddresses().forEach(System.out::println);
+
+            Address address = session.get(Address.class, 405L);
+            System.out.println(address.getCity());
             transaction.commit();
 
 //            film.getCategories().forEach(c -> c.getFilms().forEach(System.out::println));

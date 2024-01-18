@@ -1,4 +1,4 @@
-package org.example.entity;
+package org.example.interfaces;
 
 public interface EntityClass {
 }
