@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Converter(autoApply = true)
-public class SpecialFeatureConverter implements AttributeConverter<Set<SpecialFeature>, String > {
+public class SpecialFeatureConverter implements AttributeConverter<Set<SpecialFeature>, String> {
     @Override
     public String convertToDatabaseColumn(Set<SpecialFeature> specialFeatures) {
         if (specialFeatures == null || specialFeatures.isEmpty()) return "";

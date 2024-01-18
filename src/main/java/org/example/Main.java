@@ -22,9 +22,13 @@ public class Main {
 //
 //            film.getActors().add(actor);
 
+            Country country = session.get(Country.class, 103L);
+            System.out.println(country);
+            country.getCities().forEach(System.out::println);
+
             transaction.commit();
 
-            film.getCategories().forEach(c -> c.getFilms().forEach(System.out::println));
+//            film.getCategories().forEach(c -> c.getFilms().forEach(System.out::println));
 
 //            System.out.println(actor.getFilms());
 
