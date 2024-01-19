@@ -8,6 +8,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "staff", schema = "movie")
@@ -58,6 +59,12 @@ public class Staff implements EntityClass {
 
     @Column(name = "password", length = 40)
     private String password;
+
+    @OneToMany(mappedBy = "staff")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Payment> payments;
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
