@@ -5,6 +5,9 @@ import lombok.*;
 import org.example.interfaces.EntityClass;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "address", schema = "movie")
@@ -27,6 +30,16 @@ public class Address implements EntityClass {
 
     @Column(name = "district", length = 20, nullable = false)
     private String district;
+
+    @Column(name = "postal_code", length = 10)
+    private String postalCode;
+
+    @Column(name = "phone", length = 20, nullable = false)
+    private String phone;
+
+    @UpdateTimestamp
+    @Column(name = "last_update", nullable = false)
+    private ZonedDateTime lastUpdate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)

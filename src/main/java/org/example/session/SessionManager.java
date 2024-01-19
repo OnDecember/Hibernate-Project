@@ -1,4 +1,4 @@
-package org.example.manager;
+package org.example.session;
 
 import jakarta.annotation.PreDestroy;
 import jakarta.persistence.Entity;
