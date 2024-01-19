@@ -48,6 +48,19 @@ public class Main {
 //            System.out.println(payment);
 //            System.out.println(payment.getCustomer());
 //            System.out.println(payment.getStaff());
+
+//            Customer customer = session.get(Customer.class, 1L);
+//            customer.getRentals().forEach(System.out::println);
+
+//            Payment payment = session.get(Payment.class, 1L);
+//            System.out.println(payment.getRental());
+//            Staff staff = session.get(Staff.class, 1L);
+//            System.out.println(staff);
+//            staff.getRentals().forEach(System.out::println);
+            Rental rental = session.get(Rental.class, 1L);
+            System.out.println(rental);
+            System.out.println(rental.getStaff());
+            System.out.println(rental.getCustomer());
             transaction.commit();
 
 //            film.getCategories().forEach(c -> c.getFilms().forEach(System.out::println));

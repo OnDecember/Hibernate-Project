@@ -23,19 +23,24 @@ public class Payment {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Customer customer;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "staff_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Staff staff;
 
-//    private Rental rental;
+    @OneToOne
+    @JoinColumn(name = "rental_id")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Rental rental;
 
     @Column(name = "amount", nullable = false, precision = 5, scale = 2)
     private Double amount;

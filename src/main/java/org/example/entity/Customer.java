@@ -26,7 +26,7 @@ public class Customer implements EntityClass {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Store store;
@@ -42,7 +42,7 @@ public class Customer implements EntityClass {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Address address;
@@ -55,6 +55,12 @@ public class Customer implements EntityClass {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Payment> payments;
+
+    @OneToMany(mappedBy = "customer")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Rental> rentals;
 
     @CreationTimestamp
     @Column(name = "create_date", nullable = false)

@@ -29,7 +29,7 @@ public class Address implements EntityClass {
     private String district;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @JoinColumn(name = "city_id", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

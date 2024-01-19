@@ -25,14 +25,14 @@ public class Store implements EntityClass {
 
     @OneToOne
     @JoinColumn(name = "manager_staff_id", nullable = false, unique = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Staff manager;
 
     @OneToOne
     @JoinColumn(name = "address_id")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Address address;

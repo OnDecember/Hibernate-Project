@@ -31,7 +31,7 @@ public class Staff implements EntityClass {
 
     @OneToOne
     @JoinColumn(name = "address_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Address address;
@@ -46,7 +46,7 @@ public class Staff implements EntityClass {
 
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Store store;
@@ -65,6 +65,12 @@ public class Staff implements EntityClass {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Payment> payments;
+
+    @OneToMany(mappedBy = "staff")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Rental> rentals;
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)

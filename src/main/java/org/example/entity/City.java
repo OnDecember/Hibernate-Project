@@ -28,7 +28,7 @@ public class City implements EntityClass {
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @JoinColumn(name = "country_id", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
