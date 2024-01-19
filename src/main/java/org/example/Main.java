@@ -32,9 +32,14 @@ public class Main {
 //            Address address = session.get(Address.class, 405L);
 //            System.out.println(address.getCity());
 
-            Store store = session.get(Store.class, 1L);
-            System.out.println(store.getManager());
-            System.out.println(store.getEmployees());
+//            Store store = session.get(Store.class, 1L);
+//            System.out.println(store.getManager());
+//            System.out.println(store.getEmployees());
+
+            Customer customer = session.get(Customer.class, 1L);
+            System.out.println(customer);
+            System.out.println(customer.getAddress());
+            System.out.println(customer.getStore().getManager());
             transaction.commit();
 
 //            film.getCategories().forEach(c -> c.getFilms().forEach(System.out::println));
