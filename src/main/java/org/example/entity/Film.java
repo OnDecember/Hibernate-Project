@@ -92,6 +92,12 @@ public class Film implements EntityClass {
     @EqualsAndHashCode.Exclude
     private Set<Category> categories;
 
+    @OneToMany(mappedBy = "film")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Inventory> inventories;
+
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private ZonedDateTime lastUpdate;

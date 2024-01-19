@@ -57,10 +57,23 @@ public class Main {
 //            Staff staff = session.get(Staff.class, 1L);
 //            System.out.println(staff);
 //            staff.getRentals().forEach(System.out::println);
-            Rental rental = session.get(Rental.class, 1L);
-            System.out.println(rental);
-            System.out.println(rental.getStaff());
-            System.out.println(rental.getCustomer());
+//            Rental rental = session.get(Rental.class, 1L);
+//            System.out.println(rental);
+//            System.out.println(rental.getStaff());
+//            System.out.println(rental.getCustomer());
+
+//            Inventory inventory = session.get(Inventory.class, 1L);
+//            System.out.println(inventory);;
+//            System.out.println(inventory.getFilm());
+//            System.out.println(inventory.getStore());
+//            inventory.getRentals().forEach(System.out::println);
+
+//            Rental rental = session.get(Rental.class, 1L);
+//            System.out.println(rental.getInventory());
+//            Store store = session.get(Store.class, 1L);
+//            store.getInventories().forEach(System.out::println);
+//            Film film = session.get(Film.class, 100L);
+//            film.getInventories().forEach(System.out::println);
             transaction.commit();
 
 //            film.getCategories().forEach(c -> c.getFilms().forEach(System.out::println));

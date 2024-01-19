@@ -43,6 +43,12 @@ public class Store implements EntityClass {
     @EqualsAndHashCode.Exclude
     private Set<Staff> employees;
 
+    @OneToMany(mappedBy = "store")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Inventory> inventories;
+
     @UpdateTimestamp
     @Column(name = "last_update")
     private ZonedDateTime lastUpdate;
