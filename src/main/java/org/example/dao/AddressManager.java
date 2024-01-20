@@ -7,4 +7,8 @@ public class AddressManager extends EntityManager<Address>{
     public AddressManager(Session session) {
         super(Address.class, session);
     }
+
+    public AddressManager() {
+        super(Address.class);
+    }
 }

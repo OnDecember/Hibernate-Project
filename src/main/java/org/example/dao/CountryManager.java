@@ -7,4 +7,8 @@ public class CountryManager extends EntityManager<Country>{
     public CountryManager(Session session) {
         super(Country.class, session);
     }
+
+    public CountryManager() {
+        super(Country.class);
+    }
 }

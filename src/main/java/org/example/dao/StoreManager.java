@@ -7,4 +7,8 @@ public class StoreManager extends EntityManager<Store> {
     public StoreManager(Session session) {
         super(Store.class, session);
     }
+
+    public StoreManager() {
+        super(Store.class);
+    }
 }

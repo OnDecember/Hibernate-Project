@@ -29,4 +29,15 @@ public class FilmText implements EntityClass {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Film film;
+
+    @Override
+    @SuppressWarnings("all")
+    public boolean equals(Object o) {
+        return this == o;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

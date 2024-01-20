@@ -7,4 +7,8 @@ public class InventoryManager extends EntityManager<Inventory> {
     public InventoryManager(Session session) {
         super(Inventory.class, session);
     }
+
+    public InventoryManager() {
+        super(Inventory.class);
+    }
 }

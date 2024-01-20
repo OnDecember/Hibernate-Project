@@ -7,4 +7,8 @@ public class FilmCategoryManager extends EntityManager<FilmCategory>{
     public FilmCategoryManager(Session session) {
         super(FilmCategory.class, session);
     }
+
+    public FilmCategoryManager() {
+        super(FilmCategory.class);
+    }
 }

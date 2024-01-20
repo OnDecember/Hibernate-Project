@@ -11,3 +11,7 @@ It is not clear why the information from the film_text table is duplicated in th
 You need to delete the title and description fields from the film table
 
 I believe that the film_id field in the table should not have a primary key, since this is an auxiliary table and this field should refer to film_id from the film table
+
+The correct ON DELETE constraint must be set in the tables
+
+There is no foreign key for language in the film table

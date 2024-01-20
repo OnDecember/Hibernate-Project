@@ -7,4 +7,8 @@ public class RentalManager extends EntityManager<Rental> {
     public RentalManager(Session session) {
         super(Rental.class, session);
     }
+
+    public RentalManager() {
+        super(Rental.class);
+    }
 }

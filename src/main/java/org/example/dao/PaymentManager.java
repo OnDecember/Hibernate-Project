@@ -7,4 +7,8 @@ public class PaymentManager extends EntityManager<Payment> {
     public PaymentManager(Session session) {
         super(Payment.class, session);
     }
+
+    public PaymentManager() {
+        super(Payment.class);
+    }
 }

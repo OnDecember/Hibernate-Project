@@ -7,4 +7,8 @@ public class FilmActorManager extends EntityManager<FilmActor> {
     public FilmActorManager(Session session) {
         super(FilmActor.class, session);
     }
+
+    public FilmActorManager() {
+        super(FilmActor.class);
+    }
 }

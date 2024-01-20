@@ -7,4 +7,8 @@ public class StaffManager extends EntityManager<Staff> {
     public StaffManager(Session session) {
         super(Staff.class, session);
     }
+
+    public StaffManager() {
+        super(Staff.class);
+    }
 }

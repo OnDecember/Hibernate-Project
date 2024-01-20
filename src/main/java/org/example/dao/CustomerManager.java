@@ -7,4 +7,8 @@ public class CustomerManager extends EntityManager<Customer> {
     public CustomerManager(Session session) {
         super(Customer.class, session);
     }
+
+    public CustomerManager() {
+        super(Customer.class);
+    }
 }

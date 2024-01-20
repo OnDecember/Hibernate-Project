@@ -21,7 +21,7 @@ public class Language implements EntityClass {
     @Id
     @Column(name = "language_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", nullable = false, length = 20)
     private String name;
@@ -29,4 +29,15 @@ public class Language implements EntityClass {
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private ZonedDateTime lastUpdate;
+
+    @Override
+    @SuppressWarnings("all")
+    public boolean equals(Object o) {
+        return this == o;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

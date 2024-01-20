@@ -1,15 +1,21 @@
 package org.example.dao;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.example.interfaces.EntityClass;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
+@Setter
+@RequiredArgsConstructor
 public abstract class EntityManager<T extends EntityClass> {
 
     private final Class<T> clazz;
-    private final Session session;
+    private Session session;
 
     public EntityManager(Class<T> clazz, Session session) {
         this.clazz = clazz;

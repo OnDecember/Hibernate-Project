@@ -7,4 +7,8 @@ public class CategoryManager extends EntityManager<Category> {
     public CategoryManager(Session session) {
         super(Category.class, session);
     }
+
+    public CategoryManager() {
+        super(Category.class);
+    }
 }
