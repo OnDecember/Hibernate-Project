@@ -26,7 +26,7 @@ public class Country implements EntityClass {
     @Column(name = "country", nullable = false, length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

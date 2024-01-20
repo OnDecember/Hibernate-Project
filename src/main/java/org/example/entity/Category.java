@@ -27,10 +27,10 @@ public class Category implements EntityClass {
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @JoinTable(name = "film_category",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "film_id"))
-    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Film> films;

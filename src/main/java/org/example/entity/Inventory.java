@@ -23,21 +23,19 @@ public class Inventory implements EntityClass {
     @Column(name = "inventory_id", nullable = false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "film_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Film film;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Store store;
 
-    @OneToMany(mappedBy = "inventory")
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

@@ -14,7 +14,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
-
 @Entity
 @Table(name = "film_category", schema = "movie")
 @Data

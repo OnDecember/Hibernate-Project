@@ -38,14 +38,12 @@ public class Film implements EntityClass {
     @Column(name = "release_year")
     private Integer releaseYear;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "language_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.EXTRA)
     private Language language;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "original_language_id")
-    @LazyCollection(LazyCollectionOption.EXTRA)
     private Language originalLanguage;
 
     @Column(name = "rental_duration", nullable = false)
@@ -68,31 +66,30 @@ public class Film implements EntityClass {
     @Column(name = "special_features")
     private Set<SpecialFeature> features;
 
-    @OneToOne(mappedBy = "film", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.EXTRA)
+    @OneToOne(mappedBy = "film", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private FilmText filmText;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @JoinTable(name = "film_actor",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
-    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Actor> actors = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @JoinTable(name = "film_category",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Category> categories;
 
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

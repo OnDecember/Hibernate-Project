@@ -31,10 +31,10 @@ public class Actor implements EntityClass {
     private String lastName;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @JoinTable(name = "film_actor",
             joinColumns = @JoinColumn(name = "actor_id"),
             inverseJoinColumns = @JoinColumn(name = "film_id"))
-    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Film> films = new HashSet<>();

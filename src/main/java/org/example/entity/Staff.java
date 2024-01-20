@@ -29,9 +29,8 @@ public class Staff implements EntityClass {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Address address;
@@ -44,9 +43,8 @@ public class Staff implements EntityClass {
     @Column(name = "email", length = 50)
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Store store;
@@ -60,16 +58,16 @@ public class Staff implements EntityClass {
     @Column(name = "password", length = 40)
     private String password;
 
-    @OneToMany(mappedBy = "staff")
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Payment> payments;
 
-    @OneToMany(mappedBy = "staff")
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Rental> rentals;
 
     @UpdateTimestamp

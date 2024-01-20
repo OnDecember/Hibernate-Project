@@ -24,9 +24,8 @@ public class Customer implements EntityClass {
     @Column(name = "customer_id", nullable = false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
-    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Store store;
@@ -40,9 +39,8 @@ public class Customer implements EntityClass {
     @Column(name = "email", length = 50)
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Address address;
@@ -50,13 +48,13 @@ public class Customer implements EntityClass {
     @Column(name = "active", nullable = false, columnDefinition = "TINYINT(1)")
     private boolean active;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Payment> payments;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

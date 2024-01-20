@@ -3,8 +3,6 @@ package org.example.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.interfaces.EntityClass;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
@@ -22,25 +20,22 @@ public class Payment implements EntityClass {
     @Column(name = "payment_id", nullable = false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Customer customer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "staff_id", nullable = false)
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Staff staff;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "rental_id")
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Rental rental;
 
     @Column(name = "amount", nullable = false, precision = 5, scale = 2)

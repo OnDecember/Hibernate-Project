@@ -27,14 +27,13 @@ public class City implements EntityClass {
     @Column(name = "city", nullable = false, length = 50)
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.EXTRA)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Country country;
 
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
