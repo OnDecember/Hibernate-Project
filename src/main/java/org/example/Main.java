@@ -1,19 +1,30 @@
 package org.example;
 
-import org.example.dao.CustomerManager;
-import org.example.dao.FilmManager;
-import org.example.entity.Customer;
-import org.example.entity.Film;
+import org.example.entity.*;
 import org.example.session.SessionManager;
 import org.hibernate.Session;
 
 public class Main {
     public static void main(String[] args) {
-        Factory factory = new Factory();
-        try(Session session = SessionManager.SESSION_FACTORY.getSession()) {
-            FilmManager filmManager = new FilmManager(session);
-            CustomerManager customerManager = new CustomerManager(session);
+        try (Session session = SessionManager.SESSION_FACTORY.getSession()) {
+            MainLogic mainLogic = new MainLogic(session);
 
+            Film film = mainLogic.createNewFilm();
+
+            Customer customer = mainLogic.createNewCustomer();
+
+            Store store = customer.getStore();
+
+            Inventory inventory = film.getInventories().stream()
+                    .filter(r -> r.getStore().equals(store))
+                    .findFirst()
+                    .get();
+
+            Rental rental = mainLogic.rentalInventory(customer, store, inventory);
+
+            rental = mainLogic.returnRentedInventory(customer, rental, inventory);
+
+            System.out.println(rental);
         }
     }
 }

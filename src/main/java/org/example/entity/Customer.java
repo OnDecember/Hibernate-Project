@@ -9,6 +9,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -52,13 +53,15 @@ public class Customer implements EntityClass {
     @LazyCollection(LazyCollectionOption.EXTRA)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Payment> payments;
+    @Builder.Default
+    private Set<Payment> payments = new HashSet<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Rental> rentals;
+    @Builder.Default
+    private Set<Rental> rentals = new HashSet<>();
 
     @CreationTimestamp
     @Column(name = "create_date", nullable = false)
@@ -67,15 +70,4 @@ public class Customer implements EntityClass {
     @UpdateTimestamp
     @Column(name = "last_update")
     private ZonedDateTime lastUpdate;
-
-    @Override
-    @SuppressWarnings("all")
-    public boolean equals(Object o) {
-        return this == o;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }

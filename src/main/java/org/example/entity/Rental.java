@@ -48,14 +48,8 @@ public class Rental implements EntityClass {
     @Column(name = "last_update", nullable = false)
     private ZonedDateTime lastUpdate;
 
-    @Override
-    @SuppressWarnings("all")
-    public boolean equals(Object o) {
-        return this == o;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
+    @OneToOne(mappedBy = "rental", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Payment payment;
 }

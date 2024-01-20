@@ -1,7 +1,5 @@
 package org.example.dao;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.example.interfaces.EntityClass;

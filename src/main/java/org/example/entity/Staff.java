@@ -8,6 +8,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -62,26 +63,17 @@ public class Staff implements EntityClass {
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Payment> payments;
+    @Builder.Default
+    private Set<Payment> payments = new HashSet<>();
 
     @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Rental> rentals;
+    @Builder.Default
+    private Set<Rental> rentals = new HashSet<>();
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private ZonedDateTime lastUpdate;
-
-    @Override
-    @SuppressWarnings("all")
-    public boolean equals(Object o) {
-        return this == o;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }

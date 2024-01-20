@@ -64,7 +64,8 @@ public class Film implements EntityClass {
 
     @Convert(converter = SpecialFeatureConverter.class)
     @Column(name = "special_features")
-    private Set<SpecialFeature> features;
+    @Builder.Default
+    private Set<SpecialFeature> features = new HashSet<>();
 
     @OneToOne(mappedBy = "film", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
@@ -78,6 +79,7 @@ public class Film implements EntityClass {
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @Builder.Default
     private Set<Actor> actors = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -87,26 +89,17 @@ public class Film implements EntityClass {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Category> categories;
+    @Builder.Default
+    private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Inventory> inventories;
+    @Builder.Default
+    private Set<Inventory> inventories = new HashSet<>();
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private ZonedDateTime lastUpdate;
-
-    @Override
-    @SuppressWarnings("all")
-    public boolean equals(Object o) {
-        return this == o;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }

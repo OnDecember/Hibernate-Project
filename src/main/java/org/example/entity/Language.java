@@ -29,15 +29,4 @@ public class Language implements EntityClass {
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private ZonedDateTime lastUpdate;
-
-    @Override
-    @SuppressWarnings("all")
-    public boolean equals(Object o) {
-        return this == o;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }

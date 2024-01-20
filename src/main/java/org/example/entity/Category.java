@@ -8,6 +8,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -33,20 +34,10 @@ public class Category implements EntityClass {
             inverseJoinColumns = @JoinColumn(name = "film_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Film> films;
+    @Builder.Default
+    private Set<Film> films = new HashSet<>();
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private ZonedDateTime lastUpdate;
-
-    @Override
-    @SuppressWarnings("all")
-    public boolean equals(Object o) {
-        return this == o;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }
