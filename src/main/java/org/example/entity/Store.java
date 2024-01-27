@@ -21,7 +21,7 @@ public class Store implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id", nullable = false)
+    @Column(name = "store_id", nullable = false, columnDefinition = "tinyint")
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

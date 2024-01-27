@@ -25,17 +25,17 @@ import java.util.Set;
 public class Film implements EntityClass {
 
     @Id
-    @Column(name = "film_id", nullable = false)
+    @Column(name = "film_id", nullable = false, columnDefinition = "smallint")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "release_year")
+    @Column(name = "release_year", columnDefinition = "YEAR")
     private Integer releaseYear;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -46,24 +46,24 @@ public class Film implements EntityClass {
     @JoinColumn(name = "original_language_id")
     private Language originalLanguage;
 
-    @Column(name = "rental_duration", nullable = false)
+    @Column(name = "rental_duration", nullable = false, columnDefinition = "tinyint")
     private Integer rentalDuration;
 
-    @Column(name = "rental_rate", nullable = false, precision = 4, scale = 2)
+    @Column(name = "rental_rate", nullable = false, precision = 4, scale = 2, columnDefinition = "decimal")
     private Double rentalRate;
 
-    @Column(name = "length")
+    @Column(name = "length", columnDefinition = "smallint")
     private Integer length;
 
-    @Column(name = "replacement_cost", nullable = false, precision = 5, scale = 2)
+    @Column(name = "replacement_cost", nullable = false, precision = 5, scale = 2, columnDefinition = "decimal")
     private Double replacementCost;
 
     @Convert(converter = RatingConverter.class)
-    @Column(name = "rating")
+    @Column(name = "rating", columnDefinition = "enum('G', 'PG', 'PG-13', 'R', 'NC-17')")
     private Rating rating;
 
     @Convert(converter = SpecialFeatureConverter.class)
-    @Column(name = "special_features")
+    @Column(name = "special_features", columnDefinition = "set('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
     @Builder.Default
     private Set<SpecialFeature> features = new HashSet<>();
 

@@ -21,7 +21,7 @@ public class Inventory implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "inventory_id", nullable = false)
+    @Column(name = "inventory_id", nullable = false, columnDefinition = "mediumint")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

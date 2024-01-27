@@ -22,7 +22,7 @@ public class City implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "city_id", nullable = false)
+    @Column(name = "city_id", nullable = false, columnDefinition = "smallint")
     private Long id;
 
     @Column(name = "city", nullable = false, length = 50)

@@ -21,7 +21,7 @@ public class Country implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "country_id", nullable = false)
+    @Column(name = "country_id", nullable = false, columnDefinition = "smallint")
     private Long id;
 
     @Column(name = "country", nullable = false, length = 50)

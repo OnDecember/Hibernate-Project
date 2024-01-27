@@ -21,7 +21,7 @@ public class Staff implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "staff_id", nullable = false)
+    @Column(name = "staff_id", nullable = false, columnDefinition = "tinyint")
     private Long id;
 
     @Column(name = "first_name", nullable = false, length = 45)
@@ -50,7 +50,7 @@ public class Staff implements EntityClass {
     @EqualsAndHashCode.Exclude
     private Store store;
 
-    @Column(name = "active", columnDefinition = "TINYINT(1)", nullable = false)
+    @Column(name = "active", columnDefinition = "BIT", nullable = false)
     private boolean active = true;
 
     @Column(name = "username", length = 16, nullable = false)

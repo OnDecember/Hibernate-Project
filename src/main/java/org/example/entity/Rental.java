@@ -17,7 +17,7 @@ public class Rental implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rental_id", nullable = false)
+    @Column(name = "rental_id", nullable = false, columnDefinition = "int")
     private Long id;
 
     @Column(name = "rental_date", nullable = false)

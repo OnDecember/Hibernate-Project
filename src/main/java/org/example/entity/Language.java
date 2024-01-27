@@ -19,7 +19,7 @@ import java.time.ZonedDateTime;
 public class Language implements EntityClass {
 
     @Id
-    @Column(name = "language_id", nullable = false)
+    @Column(name = "language_id", nullable = false, columnDefinition = "tinyint")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

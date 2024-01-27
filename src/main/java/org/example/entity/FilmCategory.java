@@ -23,11 +23,11 @@ import java.time.ZonedDateTime;
 public class FilmCategory implements EntityClass, Serializable {
 
     @Id
-    @Column(name = "film_id", nullable = false)
+    @Column(name = "film_id", nullable = false, columnDefinition = "smallint")
     private Long filmId;
 
     @Id
-    @Column(name = "category_id", nullable = false)
+    @Column(name = "category_id", nullable = false, columnDefinition = "tinyint")
     private Long categoryId;
 
     @UpdateTimestamp

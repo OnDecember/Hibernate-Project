@@ -17,7 +17,7 @@ public class Address implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id", nullable = false)
+    @Column(name = "address_id", nullable = false, columnDefinition = "smallint")
     private Long id;
 
     @Column(name = "address", length = 50, nullable = false)

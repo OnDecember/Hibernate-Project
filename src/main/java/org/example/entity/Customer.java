@@ -22,7 +22,7 @@ public class Customer implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id", nullable = false)
+    @Column(name = "customer_id", nullable = false, columnDefinition = "smallint")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -46,7 +46,7 @@ public class Customer implements EntityClass {
     @EqualsAndHashCode.Exclude
     private Address address;
 
-    @Column(name = "active", nullable = false, columnDefinition = "TINYINT(1)")
+    @Column(name = "active", nullable = false, columnDefinition = "BIT")
     private boolean active;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)

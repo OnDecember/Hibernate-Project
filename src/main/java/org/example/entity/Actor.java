@@ -22,7 +22,7 @@ public class Actor implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "actor_id", nullable = false)
+    @Column(name = "actor_id", nullable = false, columnDefinition = "smallint")
     private Long id;
 
     @Column(name = "first_name", nullable = false)

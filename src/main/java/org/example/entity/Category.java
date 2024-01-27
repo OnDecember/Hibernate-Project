@@ -21,7 +21,7 @@ public class Category implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id", nullable = false)
+    @Column(name = "category_id", nullable = false, columnDefinition = "tinyint")
     private Long id;
 
     @Column(name = "name", length = 25, nullable = false)

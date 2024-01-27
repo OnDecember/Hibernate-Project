@@ -17,7 +17,7 @@ public class Payment implements EntityClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "payment_id", nullable = false)
+    @Column(name = "payment_id", nullable = false, columnDefinition = "smallint")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -38,7 +38,7 @@ public class Payment implements EntityClass {
     @EqualsAndHashCode.Exclude
     private Rental rental;
 
-    @Column(name = "amount", nullable = false, precision = 5, scale = 2)
+    @Column(name = "amount", nullable = false, precision = 5, scale = 2, columnDefinition = "decimal")
     private Double amount;
 
     @Column(name = "payment_date", nullable = false)
