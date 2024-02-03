@@ -63,7 +63,7 @@ public class Film implements EntityClass {
     private Rating rating;
 
     @Convert(converter = SpecialFeatureConverter.class)
-    @Column(name = "special_features", columnDefinition = "set('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
+    @Column(name = "special_features")
     @Builder.Default
     private Set<SpecialFeature> features = new HashSet<>();
 
