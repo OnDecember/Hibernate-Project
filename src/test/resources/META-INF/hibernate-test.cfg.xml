@@ -9,6 +9,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.hbm2ddl.import_files">test-data.sql</property>
 
     </session-factory>
 </hibernate-configuration>

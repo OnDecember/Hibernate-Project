@@ -36,5 +36,6 @@ public class Country implements EntityClass {
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
+    @EqualsAndHashCode.Exclude
     private ZonedDateTime lastUpdate;
 }

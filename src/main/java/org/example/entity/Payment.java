@@ -46,5 +46,6 @@ public class Payment implements EntityClass {
 
     @UpdateTimestamp
     @Column(name = "last_update")
+    @EqualsAndHashCode.Exclude
     private ZonedDateTime lastUpdate;
 }

@@ -65,9 +65,11 @@ public class Customer implements EntityClass {
 
     @CreationTimestamp
     @Column(name = "create_date", nullable = false)
+    @EqualsAndHashCode.Exclude
     private ZonedDateTime createDate;
 
     @UpdateTimestamp
     @Column(name = "last_update")
+    @EqualsAndHashCode.Exclude
     private ZonedDateTime lastUpdate;
 }

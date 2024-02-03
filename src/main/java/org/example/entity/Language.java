@@ -1,10 +1,7 @@
 package org.example.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.interfaces.EntityClass;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -28,5 +25,6 @@ public class Language implements EntityClass {
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
+    @EqualsAndHashCode.Exclude
     private ZonedDateTime lastUpdate;
 }

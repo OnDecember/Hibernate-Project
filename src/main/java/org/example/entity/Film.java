@@ -55,7 +55,7 @@ public class Film implements EntityClass {
     @Column(name = "length", columnDefinition = "smallint")
     private Integer length;
 
-    @Column(name = "replacement_cost", nullable = false, precision = 5, scale = 2, columnDefinition = "decimal")
+    @Column(name = "replacement_cost", nullable = false, precision = 5, scale = 2, columnDefinition = "decimal(5,2)")
     private Double replacementCost;
 
     @Convert(converter = RatingConverter.class)
@@ -101,5 +101,6 @@ public class Film implements EntityClass {
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
+    @EqualsAndHashCode.Exclude
     private ZonedDateTime lastUpdate;
 }
