@@ -44,7 +44,7 @@ public class Staff implements EntityClass {
     @Column(name = "email", length = 50)
     private String email;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

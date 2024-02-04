@@ -10,10 +10,14 @@ import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.*;
 import org.reflections.Reflections;
 
+import java.math.BigInteger;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class MainLogicTest {
 
@@ -80,10 +84,9 @@ class MainLogicTest {
     }
 
     @Test
-    void create_new_customer_should_succeed() {
+    void createNewCustomer_ShouldPersistCustomerDataCorrectly() {
 
         long storeId = 1;
-        long customerId = 2;
         long addressId = 3;
         Store store = storeManager.getById(storeId);
         Address address = addressManager.getById(addressId);
@@ -96,7 +99,9 @@ class MainLogicTest {
                 .active(true)
                 .build();
 
-        customerManager.save(customer);
+        long customerId = customerManager.save(customer).getId();
+        session.detach(customer);
+        session.clear();
 
         assertEquals(customerId, customer.getId());
         assertEquals(customer, customerManager.getById(customerId));
@@ -105,7 +110,7 @@ class MainLogicTest {
     }
 
     @Test
-    void verify_customer_fields() {
+    void verifyCustomerFields_AreRetrievedCorrectly() {
 
         long storeId = 1;
         long customerId = 1;
@@ -122,9 +127,9 @@ class MainLogicTest {
     }
 
     @Test
-    void retrieve_null_customer_should_return_null() {
+    void retrieveCustomer_WithInvalidId_ShouldReturnNull() {
 
-        long id = 10L;
+        long id = 1000000L;
 
         Customer customer = customerManager.getById(id);
 
@@ -132,7 +137,7 @@ class MainLogicTest {
     }
 
     @Test
-    void update_customer_should_change_first_name() {
+    void updateCustomerFirstName_ShouldReflectChange() {
 
         String name = "set first name";
         long id = 1;
@@ -148,7 +153,7 @@ class MainLogicTest {
     }
 
     @Test
-    void create_film_with_valid_data() {
+    void createFilm_WithValidData_ShouldSucceed() {
 
         Set<SpecialFeature> features = new HashSet<>() {{
             add(SpecialFeature.COMMENTARIES);
@@ -179,7 +184,8 @@ class MainLogicTest {
     }
 
     @Test
-    void associate_inventory_with_film() {
+    void associateInventoryWithFilm_ShouldLinkCorrectly() {
+
         Film film = mainLogic.createNewFilm();
         Set<Inventory> inventories = film.getInventories();
 
@@ -191,7 +197,8 @@ class MainLogicTest {
     }
 
     @Test
-    void associate_film_text_with_film() {
+    void associateFilmTextWithFilm_ShouldMatchFilmDetails() {
+
         Film film = mainLogic.createNewFilm();
 
         session.detach(film);
@@ -205,10 +212,174 @@ class MainLogicTest {
     }
 
     @Test
-    void rentalInventory() {
+    void rentalInventory_WithInvalidStore_ShouldThrowException() {
+
+        Customer customer = mainLogic.createNewCustomer();
+        Inventory inventory = inventoryManager.getById(1);
+
+        assertNotNull(inventory);
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> mainLogic.rentalInventory(customer, customer.getStore(), inventory));
+        assertEquals("This store does not have such inventory", exception.getMessage());
     }
 
     @Test
-    void returnRentedInventory() {
+    void rentalInventory_WithNullInventory_ShouldThrowException() {
+
+        Customer customer = mainLogic.createNewCustomer();
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> mainLogic.rentalInventory(customer, customer.getStore(), null));
+        assertEquals("Inventory can`t be null", exception.getMessage());
+    }
+
+    @Test
+    @SuppressWarnings("all")
+    void rentalInventory_WithAlreadyRentedInventory_ShouldThrowException() {
+
+        Customer customer = mainLogic.createNewCustomer();
+        Inventory inventory = mock(Inventory.class);
+        Set<Rental> mockRentals = mock(HashSet.class);
+        Rental rentalWithoutReturnDate = mock(Rental.class);
+        Store store = spy(customer.getStore());
+        Set<Inventory> inventories = new HashSet<>() {{
+            add(inventory);
+        }};
+
+        when(store.getInventories()).thenReturn(inventories);
+        when(inventory.getRentals()).thenReturn(mockRentals);
+        when(mockRentals.isEmpty()).thenReturn(Boolean.FALSE);
+        when(mockRentals.stream()).thenReturn(Stream.of(rentalWithoutReturnDate));
+        when(rentalWithoutReturnDate.getReturnDate()).thenReturn(null);
+
+        assertFalse(inventory.getRentals().isEmpty());
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> mainLogic.rentalInventory(customer, store, inventory));
+        assertEquals("This inventory is already rented", exception.getMessage());
+    }
+
+    @Test
+    @SuppressWarnings("all")
+    void rentalProcess_ShouldCreateValidRentalAndPayment() {
+
+        Customer customer = mainLogic.createNewCustomer();
+        Store store = spy(customer.getStore());
+        Film film = mainLogic.createNewFilm();
+        Inventory inventory = film.getInventories().stream().findFirst().get();
+        Set<Inventory> inventories = new HashSet<>() {{
+            add(inventory);
+        }};
+
+        when(store.getInventories()).thenReturn(inventories);
+        Rental rental = mainLogic.rentalInventory(customer, store, inventory);
+
+        long id = ((BigInteger) session.createNativeQuery("SELECT LAST_INSERT_ID()").getSingleResult()).longValue();
+        Payment payment = paymentManager.getById(id);
+
+        assertEquals(payment, rental.getPayment());
+        assertEquals(inventory, rental.getInventory());
+        assertEquals(customer, rental.getCustomer());
+        assertEquals(rental, payment.getRental());
+    }
+
+    @Test
+    @SuppressWarnings("all")
+    void returnRentedInventory_WithMismatchedInventory_ShouldThrowException() {
+
+        Customer customer = mainLogic.createNewCustomer();
+        Store store = spy(customer.getStore());
+        Film film = mainLogic.createNewFilm();
+        Inventory inventory = film.getInventories().stream().findFirst().get();
+        Set<Inventory> inventories = new HashSet<>() {{
+            add(inventory);
+        }};
+
+        when(store.getInventories()).thenReturn(inventories);
+        Rental rental = mainLogic.rentalInventory(customer, store, inventory);
+        Inventory newInventory = new Inventory();
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> mainLogic.returnRentedInventory(customer, rental, newInventory));
+        assertEquals("This rental does not apply to this inventory", exception.getMessage());
+    }
+
+    @Test
+    @SuppressWarnings("all")
+    void returnRentedInventory_WithMismatchedCustomer_ShouldThrowException() {
+
+        Customer customer = mainLogic.createNewCustomer();
+        Store store = spy(customer.getStore());
+        Film film = mainLogic.createNewFilm();
+        Inventory inventory = film.getInventories().stream().findFirst().get();
+        Set<Inventory> inventories = new HashSet<>() {{
+            add(inventory);
+        }};
+
+        when(store.getInventories()).thenReturn(inventories);
+        Rental rental = mainLogic.rentalInventory(customer, store, inventory);
+        Customer newCustomer = new Customer();
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> mainLogic.returnRentedInventory(newCustomer, rental, inventory));
+        assertEquals("This rental does not apply to this user", exception.getMessage());
+    }
+
+    @Test
+    @SuppressWarnings("all")
+    void returnRentedInventory_WithUnpaidRental_ShouldThrowException() {
+
+        Customer customer = mainLogic.createNewCustomer();
+        Store store = spy(customer.getStore());
+        Film film = mainLogic.createNewFilm();
+        Inventory inventory = film.getInventories().stream().findFirst().get();
+        Set<Inventory> inventories = new HashSet<>() {{
+            add(inventory);
+        }};
+
+        when(store.getInventories()).thenReturn(inventories);
+        Rental rental = spy(mainLogic.rentalInventory(customer, store, inventory));
+        when(rental.getPayment()).thenReturn(null);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> mainLogic.returnRentedInventory(customer, rental, inventory));
+        assertEquals("This rent has not been paid", exception.getMessage());
+    }
+
+    @Test
+    @SuppressWarnings("all")
+    void returnRentedInventory_WithAlreadyClosedLease_ShouldThrowException() {
+
+        Customer customer = mainLogic.createNewCustomer();
+        Store store = spy(customer.getStore());
+        Film film = mainLogic.createNewFilm();
+        Inventory inventory = film.getInventories().stream().findFirst().get();
+        Set<Inventory> inventories = new HashSet<>() {{
+            add(inventory);
+        }};
+
+        when(store.getInventories()).thenReturn(inventories);
+        Rental rental = spy(mainLogic.rentalInventory(customer, store, inventory));
+        when(rental.getReturnDate()).thenReturn(ZonedDateTime.now());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> mainLogic.returnRentedInventory(customer, rental, inventory));
+        assertEquals("This lease has already been closed", exception.getMessage());
+    }
+
+    @Test
+    @SuppressWarnings("all")
+    void returnRentedInventory_ShouldUpdateRentalStatusCorrectly() {
+
+        Customer customer = mainLogic.createNewCustomer();
+        Store store = spy(customer.getStore());
+        Film film = mainLogic.createNewFilm();
+        Inventory inventory = film.getInventories().stream().findFirst().get();
+        Set<Inventory> inventories = new HashSet<>() {{
+            add(inventory);
+        }};
+
+        when(store.getInventories()).thenReturn(inventories);
+        Rental rental = mainLogic.rentalInventory(customer, store, inventory);
+        rental = mainLogic.returnRentedInventory(customer, rental, inventory);
+        session.refresh(customer);
+        session.refresh(inventory);
+
+        assertTrue(inventory.getRentals().contains(rental));
+        assertTrue(rental.getCustomer().equals(customer));
+        assertTrue(customer.getRentals().contains(rental));
+        assertNotNull(rental.getReturnDate());
     }
 }

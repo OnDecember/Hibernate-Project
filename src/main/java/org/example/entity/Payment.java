@@ -38,7 +38,7 @@ public class Payment implements EntityClass {
     @EqualsAndHashCode.Exclude
     private Rental rental;
 
-    @Column(name = "amount", nullable = false, precision = 5, scale = 2, columnDefinition = "decimal")
+    @Column(name = "amount", nullable = false, precision = 5, scale = 2, columnDefinition = "decimal(5,2)")
     private Double amount;
 
     @Column(name = "payment_date", nullable = false)

@@ -110,6 +110,10 @@ public class MainLogic {
 
     public Rental rentalInventory(Customer customer, Store store, Inventory inventory) {
 
+        if (Objects.isNull(inventory)) {
+            throw new RuntimeException("Inventory can`t be null");
+        }
+
         if (!store.getInventories().contains(inventory))
             throw new RuntimeException("This store does not have such inventory");
 

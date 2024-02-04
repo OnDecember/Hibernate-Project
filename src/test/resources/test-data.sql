@@ -2,6 +2,8 @@ INSERT INTO movie.country (country, last_update) VALUES ('Ukraine', CURRENT_TIME
 
 INSERT INTO movie.city (city, country_id, last_update) VALUES ('Kyiv', 1, CURRENT_TIMESTAMP), ('Lviv', 1, CURRENT_TIMESTAMP), ('New York', 2, CURRENT_TIMESTAMP), ('Lawrence', 2, CURRENT_TIMESTAMP);
 
+INSERT INTO movie.city (city_id, city, country_id, last_update) VALUES (135, 'Detroit', 2, CURRENT_TIMESTAMP);
+
 INSERT INTO movie.address (address, address2, district, city_id, postal_code, phone, last_update) VALUES ('123 Aslan Way', 'Suite A', 'Northern District', 1, '12345', '555-1234', CURRENT_TIMESTAMP),('456 Bag End', 'Suite B', 'Shire District', 2, '23456', '555-2345', CURRENT_TIMESTAMP),('789 Red Keep Avenue', 'Suite C', 'Landing District', 3, '34567', '555-3456', CURRENT_TIMESTAMP);
 
 ALTER TABLE movie.store ALTER COLUMN manager_staff_id DROP NOT NULL;
@@ -26,3 +28,5 @@ INSERT INTO movie.language (name, last_update) VALUES ('l1', CURRENT_TIMESTAMP),
 INSERT INTO movie.film (title, description, release_year, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features, last_update) VALUES ('title', 'desc', 2024, 1, 1, 2, 4.99, 100, 20.99, 'G', 'Commentaries, Trailers', CURRENT_TIMESTAMP);
 
 INSERT INTO movie.film_text (film_id, title, description) VALUES (1, 'title', 'desc');
+
+INSERT INTO movie.inventory (film_id, store_id, last_update) VALUES (1, 2, CURRENT_TIMESTAMP);

@@ -49,7 +49,7 @@ public class Film implements EntityClass {
     @Column(name = "rental_duration", nullable = false, columnDefinition = "tinyint")
     private Integer rentalDuration;
 
-    @Column(name = "rental_rate", nullable = false, precision = 4, scale = 2, columnDefinition = "decimal")
+    @Column(name = "rental_rate", nullable = false, precision = 4, scale = 2, columnDefinition = "decimal(4,2)")
     private Double rentalRate;
 
     @Column(name = "length", columnDefinition = "smallint")
