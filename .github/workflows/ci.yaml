@@ -29,10 +29,27 @@ jobs:
         run: mvn --batch-mode --update-snapshots package
       - name: Run tests with Maven
         run: mvn --batch-mode test
-
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: target/surefire-reports/*.xml
           report_individual_runs: true
+      - name: Tests Report 2
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Tests Report 2
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+      - name: Tests Report 3
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: target/surefire-reports/*.xml
+      - name: Upload test results to testhub.io
+        uses: testhub-io/testhub-io.action@v0.62
+        if: always()
+        with:
+          test_result_pattern: "target/surefire-reports/*.xml"
+          test_coverage_pattern: "target/site/jacoco/jacoco.xml"
